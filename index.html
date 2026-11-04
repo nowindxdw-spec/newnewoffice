@@ -264,6 +264,8 @@
         text-decoration: none;
       }
       .card-link:hover { text-decoration: underline; text-underline-offset: 3px; }
+      .card-links { display: flex; flex-wrap: wrap; gap: 16px; margin-top: auto; }
+      .card-links .card-link { margin-top: 0; }
       .external { font-size: 13px; line-height: 1; }
       .empty { display: none; padding: 38px 16px; color: var(--muted); text-align: center; font-size: 13px; }
       .note {
@@ -354,7 +356,7 @@
             <h2 id="catalog-title">办公软件精选</h2>
             <p>按工作场景整理，找到合适的那一款。</p>
           </div>
-          <span class="count" id="result-count" aria-live="polite">9 款工具</span>
+          <span class="count" id="result-count" aria-live="polite">10 款工具</span>
         </div>
         <div class="controls">
           <div class="filters" role="group" aria-label="按类别筛选">
@@ -438,6 +440,18 @@
             </div>
             <p>在浏览器中协作完成界面设计与原型，设计师、产品和研发可以围绕同一份稿件及时对齐。</p>
             <a class="card-link" href="https://www.figma.com/" target="_blank" rel="noopener noreferrer">产品官网 <span class="external" aria-hidden="true">↗</span></a>
+          </article>
+
+          <article class="card" data-category="design" data-search="artcraft craft apps wordcraft gridcraft deckcraft pdfcraft photocraft figcraft 文档 表格 演示 pdf 图片设计 开源 rust">
+            <div class="card-head">
+              <span class="logo-wrap" style="--logo-bg:#f8ebe7;--logo-color:#bd5948"><span class="logo-fallback" style="display:block" aria-hidden="true">A</span></span>
+              <div><h3>ArtCraft 系列</h3><span class="card-category">办公与创作工具</span></div>
+            </div>
+            <p>16 款开源创作应用组成的工具集：WordCraft、GridCraft、DeckCraft、PdfCraft 覆盖文档、表格、演示与 PDF，另有 PhotoCraft、FigCraft 等视觉工具。</p>
+            <div class="card-links">
+              <a class="card-link" href="https://getartcraft.com/" target="_blank" rel="noopener noreferrer">系列官网 <span class="external" aria-hidden="true">↗</span></a>
+              <a class="card-link" href="https://github.com/storytold/artcraft" target="_blank" rel="noopener noreferrer">GitHub <span class="external" aria-hidden="true">↗</span></a>
+            </div>
           </article>
 
           <article class="card" data-category="collab" data-search="linear 项目管理 任务 迭代 bug 开发 团队">
