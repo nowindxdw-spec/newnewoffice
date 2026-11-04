@@ -390,11 +390,8 @@
                 <button class="carousel-button" type="button" data-carousel-step="-1" aria-label="上一条推荐" title="上一条推荐">
                   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m15 18-6-6 6-6"/></svg>
                 </button>
-                <span class="carousel-count" id="recommendation-count" aria-live="polite">01 / 02</span>
-                <div class="carousel-dots" role="group" aria-label="选择推荐">
-                  <button class="carousel-dot" type="button" data-carousel-index="0" aria-label="显示第 1 条推荐：DBX" aria-current="true"></button>
-                  <button class="carousel-dot" type="button" data-carousel-index="1" aria-label="显示第 2 条推荐：ArtCraft 系列" aria-current="false"></button>
-                </div>
+                <span class="carousel-count" id="recommendation-count" aria-live="polite">01 / 03</span>
+                <div class="carousel-dots" id="carousel-dots" role="group" aria-label="选择推荐"></div>
                 <button class="carousel-button" type="button" data-carousel-step="1" aria-label="下一条推荐" title="下一条推荐">
                   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 18 6-6-6-6"/></svg>
                 </button>
@@ -411,7 +408,7 @@
             <h2 id="catalog-title">办公软件精选</h2>
             <p>按工作场景整理，找到合适的那一款。</p>
           </div>
-          <span class="count" id="result-count" aria-live="polite">9 款工具</span>
+          <span class="count" id="result-count" aria-live="polite">10 款工具</span>
         </div>
         <div class="controls">
           <div class="filters" role="group" aria-label="按类别筛选">
@@ -441,6 +438,18 @@
             </div>
             <p>适合起草、总结、资料梳理与数据分析。把重复的文字工作交给对话式 AI，再由你把关结果。</p>
             <a class="card-link" href="https://chatgpt.com/" target="_blank" rel="noopener noreferrer">产品官网 <span class="external" aria-hidden="true">↗</span></a>
+          </article>
+
+          <article class="card" data-category="ai" data-search="dsh-go dsh go android deepseek harness 手机 linux 远程电脑 编程助手">
+            <div class="card-head">
+              <span class="logo-wrap" style="--logo-bg:#f5efdf;--logo-color:#a27427"><span class="logo-fallback" style="display:block" aria-hidden="true">DSH</span></span>
+              <div><h3>DSH-Go</h3><span class="card-category">AI 编程助手 · Android</span></div>
+            </div>
+            <p>DeepSeek Harness 的 Android 客户端，可在手机内置 Linux 环境本机运行，也能遥控电脑上的 DSH；免 Root、免 Termux。</p>
+            <div class="card-links">
+              <a class="card-link" href="https://github.com/ccch1mneyyy/dsh-Go" target="_blank" rel="noopener noreferrer">GitHub 项目 <span class="external" aria-hidden="true">↗</span></a>
+              <a class="card-link" href="https://github.com/ccch1mneyyy/dsh-Go/releases/latest" target="_blank" rel="noopener noreferrer">下载 APK <span class="external" aria-hidden="true">↗</span></a>
+            </div>
           </article>
 
           <article class="card" data-category="office" data-search="notion 笔记 文档 知识库 wiki 数据库 项目管理">
@@ -547,6 +556,15 @@
           description: '16 款开源创作应用覆盖文档、表格、演示、PDF 与视觉设计，包括 WordCraft、GridCraft、DeckCraft、PdfCraft、PhotoCraft 和 FigCraft。',
           url: 'https://getartcraft.com/',
           linkText: '查看 ArtCraft 系列'
+        },
+        {
+          id: 'dsh-go',
+          category: 'AI 编程助手',
+          logo: 'DSH',
+          title: 'DSH-Go',
+          description: 'DeepSeek Harness 的 Android 客户端，可在手机内置 Linux 环境本机运行，也能遥控电脑上的 DSH；免 Root、免 Termux。',
+          url: 'https://github.com/ccch1mneyyy/dsh-Go',
+          linkText: '访问 DSH-Go 项目'
         }
       ];
       const recommendationCard = document.querySelector('#recommendation-carousel');
@@ -556,8 +574,18 @@
       const recommendationDescription = recommendationCard.querySelector('.feature-bottom p');
       const recommendationLink = document.querySelector('#recommendation-link');
       const recommendationCount = document.querySelector('#recommendation-count');
-      const carouselDots = [...document.querySelectorAll('.carousel-dot')];
+      const carouselDots = document.querySelector('#carousel-dots');
       let activeRecommendation = 0;
+
+      recommendations.forEach((recommendation, index) => {
+        const dot = document.createElement('button');
+        dot.className = 'carousel-dot';
+        dot.type = 'button';
+        dot.setAttribute('aria-label', `显示第 ${index + 1} 条推荐：${recommendation.title}`);
+        dot.setAttribute('aria-current', 'false');
+        dot.addEventListener('click', () => showRecommendation(index));
+        carouselDots.append(dot);
+      });
 
       function showRecommendation(index) {
         activeRecommendation = (index + recommendations.length) % recommendations.length;
@@ -571,15 +599,13 @@
         recommendationLink.href = recommendation.url;
         recommendationLink.firstChild.textContent = recommendation.linkText;
         recommendationCount.textContent = `${String(activeRecommendation + 1).padStart(2, '0')} / ${String(recommendations.length).padStart(2, '0')}`;
-        carouselDots.forEach((dot, dotIndex) => dot.setAttribute('aria-current', String(dotIndex === activeRecommendation)));
+        carouselDots.querySelectorAll('.carousel-dot').forEach((dot, dotIndex) => dot.setAttribute('aria-current', String(dotIndex === activeRecommendation)));
       }
 
       document.querySelectorAll('[data-carousel-step]').forEach((button) => {
         button.addEventListener('click', () => showRecommendation(activeRecommendation + Number(button.dataset.carouselStep)));
       });
-      carouselDots.forEach((dot) => {
-        dot.addEventListener('click', () => showRecommendation(Number(dot.dataset.carouselIndex)));
-      });
+      showRecommendation(0);
 
       function updateResults() {
         const query = searchInput.value.trim().toLocaleLowerCase();
