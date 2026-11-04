@@ -133,7 +133,9 @@
         border: 1px solid #cbded2;
         border-radius: 7px;
         background: #edf5ef;
+        transition: background-color .2s ease, border-color .2s ease;
       }
+      .feature[data-slide="artcraft"] { border-color: #e4c7bd; background: #f8eeea; }
       .feature::after {
         position: absolute;
         right: -27px;
@@ -145,8 +147,11 @@
         box-shadow: 0 0 0 22px #edf5ef, 0 0 0 23px #b8d5c3, 0 0 0 45px #edf5ef, 0 0 0 46px #b8d5c3;
         content: "";
         pointer-events: none;
+        transition: border-color .2s ease, box-shadow .2s ease;
       }
+      .feature[data-slide="artcraft"]::after { border-color: #e2b9ac; box-shadow: 0 0 0 22px #f8eeea, 0 0 0 23px #e2b9ac, 0 0 0 45px #f8eeea, 0 0 0 46px #e2b9ac; }
       .feature-top, .feature-bottom { position: relative; z-index: 1; }
+      .feature-bottom { width: 100%; }
       .feature-top { width: 100%; display: flex; align-items: center; justify-content: space-between; }
       .feature-label { color: var(--green); font-size: 11px; font-weight: 750; letter-spacing: .04em; }
       .feature-logo {
@@ -155,12 +160,13 @@
         aspect-ratio: 1;
         place-items: center;
         border-radius: 12px;
-        background: var(--green);
+        background: var(--feature-accent, var(--green));
         color: white;
         font-size: 21px;
         font-weight: 800;
         letter-spacing: 0;
       }
+      .feature[data-slide="artcraft"] .feature-logo { background: var(--coral); }
       .feature h2 { margin: 15px 0 6px; font-size: 26px; line-height: 1.2; }
       .feature p { max-width: 330px; margin: 0; color: #52685d; font-size: 13px; }
       .feature-link {
@@ -174,6 +180,38 @@
         text-decoration: none;
       }
       .feature-link:hover { text-decoration: underline; text-underline-offset: 3px; }
+      .feature-actions { display: flex; align-items: flex-start; flex-direction: column; gap: 8px; }
+      .carousel-controls { display: flex; align-items: center; gap: 7px; }
+      .carousel-button {
+        width: 32px;
+        aspect-ratio: 1;
+        display: grid;
+        place-items: center;
+        padding: 0;
+        border: 1px solid #cbded2;
+        border-radius: 5px;
+        background: #ffffffb8;
+        color: var(--green);
+        cursor: pointer;
+      }
+      .feature[data-slide="artcraft"] .carousel-button { border-color: #e4c7bd; color: var(--coral); }
+      .carousel-button:hover { background: white; }
+      .carousel-button:focus-visible, .carousel-dot:focus-visible { outline: 2px solid var(--green); outline-offset: 2px; }
+      .carousel-button svg { width: 16px; height: 16px; }
+      .carousel-count { min-width: 34px; color: var(--muted); font-size: 10px; font-variant-numeric: tabular-nums; text-align: center; }
+      .carousel-dots { display: flex; align-items: center; gap: 5px; }
+      .carousel-dot {
+        width: 8px;
+        height: 8px;
+        padding: 0;
+        border: 0;
+        border-radius: 5px;
+        background: #b7c7bd;
+        cursor: pointer;
+        transition: width .18s ease, background-color .18s ease;
+      }
+      .carousel-dot[aria-current="true"] { width: 19px; background: var(--green); }
+      .feature[data-slide="artcraft"] .carousel-dot[aria-current="true"] { background: var(--coral); }
 
       .catalog { border-top: 1px solid var(--line); padding-block: 31px 64px; }
       .section-head {
@@ -337,7 +375,8 @@
             <span class="tag">设计与项目</span>
           </div>
         </div>
-          <article class="feature" aria-label="本期首推 DBX">
+          <div class="recommendation-carousel" role="region" aria-roledescription="carousel" aria-label="本期推荐">
+          <article class="feature" id="recommendation-carousel" data-slide="dbx" role="group" aria-roledescription="slide" aria-label="推荐 1 / 2">
           <div class="feature-top">
             <span class="feature-label">本期首推 · 数据库管理</span>
             <span class="feature-logo" aria-hidden="true">DBX</span>
@@ -345,9 +384,25 @@
           <div class="feature-bottom">
             <h2>DBX 数据库管理工具</h2>
             <p>轻量级跨平台数据库客户端，支持 MySQL、PostgreSQL、SQLite、Redis、MongoDB 等 100 多种数据库，并集成 AI 助手。</p>
-            <a class="feature-link" href="https://dbxio.com/" target="_blank" rel="noopener noreferrer">访问 DBX 官网 <span class="external" aria-hidden="true">↗</span></a>
+            <div class="feature-actions">
+              <a class="feature-link" id="recommendation-link" href="https://dbxio.com/" target="_blank" rel="noopener noreferrer">访问 DBX 官网 <span class="external" aria-hidden="true">↗</span></a>
+              <div class="carousel-controls" aria-label="推荐轮播控制">
+                <button class="carousel-button" type="button" data-carousel-step="-1" aria-label="上一条推荐" title="上一条推荐">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m15 18-6-6 6-6"/></svg>
+                </button>
+                <span class="carousel-count" id="recommendation-count" aria-live="polite">01 / 02</span>
+                <div class="carousel-dots" role="group" aria-label="选择推荐">
+                  <button class="carousel-dot" type="button" data-carousel-index="0" aria-label="显示第 1 条推荐：DBX" aria-current="true"></button>
+                  <button class="carousel-dot" type="button" data-carousel-index="1" aria-label="显示第 2 条推荐：ArtCraft 系列" aria-current="false"></button>
+                </div>
+                <button class="carousel-button" type="button" data-carousel-step="1" aria-label="下一条推荐" title="下一条推荐">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 18 6-6-6-6"/></svg>
+                </button>
+              </div>
+            </div>
           </div>
         </article>
+        </div>
       </section>
 
       <section class="catalog" id="catalog" aria-labelledby="catalog-title">
@@ -482,6 +537,58 @@
       const resultCount = document.querySelector('#result-count');
       const emptyState = document.querySelector('#empty-state');
       let activeCategory = 'all';
+
+      const recommendations = [
+        {
+          id: 'dbx',
+          category: '数据库管理',
+          logo: 'DBX',
+          title: 'DBX 数据库管理工具',
+          description: '轻量级跨平台数据库客户端，支持 MySQL、PostgreSQL、SQLite、Redis、MongoDB 等 100 多种数据库，并集成 AI 助手。',
+          url: 'https://dbxio.com/',
+          linkText: '访问 DBX 官网'
+        },
+        {
+          id: 'artcraft',
+          category: '办公与创作工具',
+          logo: 'AC',
+          title: 'ArtCraft 系列',
+          description: '16 款开源创作应用覆盖文档、表格、演示、PDF 与视觉设计，包括 WordCraft、GridCraft、DeckCraft、PdfCraft、PhotoCraft 和 FigCraft。',
+          url: 'https://getartcraft.com/',
+          linkText: '查看 ArtCraft 系列'
+        }
+      ];
+      const recommendationCard = document.querySelector('#recommendation-carousel');
+      const recommendationCategory = recommendationCard.querySelector('.feature-label');
+      const recommendationLogo = recommendationCard.querySelector('.feature-logo');
+      const recommendationTitle = recommendationCard.querySelector('h2');
+      const recommendationDescription = recommendationCard.querySelector('.feature-bottom p');
+      const recommendationLink = document.querySelector('#recommendation-link');
+      const recommendationCount = document.querySelector('#recommendation-count');
+      const carouselDots = [...document.querySelectorAll('.carousel-dot')];
+      let activeRecommendation = 0;
+
+      function showRecommendation(index) {
+        activeRecommendation = (index + recommendations.length) % recommendations.length;
+        const recommendation = recommendations[activeRecommendation];
+        recommendationCard.dataset.slide = recommendation.id;
+        recommendationCard.setAttribute('aria-label', `推荐 ${activeRecommendation + 1} / ${recommendations.length}`);
+        recommendationCategory.textContent = `本期首推 · ${recommendation.category}`;
+        recommendationLogo.textContent = recommendation.logo;
+        recommendationTitle.textContent = recommendation.title;
+        recommendationDescription.textContent = recommendation.description;
+        recommendationLink.href = recommendation.url;
+        recommendationLink.firstChild.textContent = recommendation.linkText;
+        recommendationCount.textContent = `${String(activeRecommendation + 1).padStart(2, '0')} / ${String(recommendations.length).padStart(2, '0')}`;
+        carouselDots.forEach((dot, dotIndex) => dot.setAttribute('aria-current', String(dotIndex === activeRecommendation)));
+      }
+
+      document.querySelectorAll('[data-carousel-step]').forEach((button) => {
+        button.addEventListener('click', () => showRecommendation(activeRecommendation + Number(button.dataset.carouselStep)));
+      });
+      carouselDots.forEach((dot) => {
+        dot.addEventListener('click', () => showRecommendation(Number(dot.dataset.carouselIndex)));
+      });
 
       function updateResults() {
         const query = searchInput.value.trim().toLocaleLowerCase();
