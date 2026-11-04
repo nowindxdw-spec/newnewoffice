@@ -1,0 +1,502 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#f5f7f5">
+    <meta name="description" content="为 AI 时代挑选真正好用的办公软件，从 DBx Studio 数据库工作台开始。">
+    <title>好用办公 · AI 时代的效率工具</title>
+    <link rel="preconnect" href="https://cdn.simpleicons.org">
+    <link rel="preconnect" href="https://dbxio.com">
+    <style>
+      :root {
+        color-scheme: light;
+        --ink: #172923;
+        --muted: #66756f;
+        --line: #dce5df;
+        --paper: #f5f7f5;
+        --white: #fff;
+        --green: #12684f;
+        --green-soft: #e4f2eb;
+        --blue: #315f8a;
+        --blue-soft: #e9f0f7;
+        --coral: #bd5948;
+        --coral-soft: #f8ebe7;
+        --gold: #a27427;
+        --gold-soft: #f5efdf;
+      }
+
+      * { box-sizing: border-box; }
+      html { scroll-behavior: smooth; }
+      body {
+        margin: 0;
+        background: var(--paper);
+        color: var(--ink);
+        font-family: Inter, "PingFang SC", "Microsoft YaHei", sans-serif;
+        font-size: 15px;
+        line-height: 1.6;
+      }
+      a { color: inherit; }
+      button, input { font: inherit; }
+      button { color: inherit; }
+      .shell { width: min(1120px, calc(100% - 48px)); margin-inline: auto; }
+
+      .topbar {
+        height: 68px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        border-bottom: 1px solid var(--line);
+      }
+      .brand {
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        text-decoration: none;
+        font-size: 16px;
+        font-weight: 750;
+      }
+      .brand-mark {
+        display: grid;
+        width: 29px;
+        aspect-ratio: 1;
+        place-items: center;
+        border-radius: 7px;
+        background: var(--green);
+        color: white;
+        font-size: 13px;
+        font-weight: 800;
+      }
+      .topnav { display: flex; gap: 26px; align-items: center; }
+      .topnav a {
+        color: var(--muted);
+        text-decoration: none;
+        font-size: 13px;
+      }
+      .topnav a:hover { color: var(--green); }
+
+      .hero {
+        min-height: 386px;
+        display: grid;
+        grid-template-columns: minmax(0, 1.18fr) minmax(300px, .82fr);
+        align-items: center;
+        gap: 64px;
+        padding-block: 52px 48px;
+      }
+      .eyebrow {
+        display: flex;
+        align-items: center;
+        gap: 9px;
+        margin: 0 0 15px;
+        color: var(--green);
+        font-size: 12px;
+        font-weight: 750;
+        text-transform: uppercase;
+      }
+      .eyebrow::before {
+        width: 22px;
+        height: 2px;
+        background: var(--green);
+        content: "";
+      }
+      h1, h2, h3, p { margin-top: 0; }
+      h1 {
+        max-width: 610px;
+        margin-bottom: 15px;
+        font-size: 42px;
+        line-height: 1.2;
+        font-weight: 760;
+      }
+      .hero-copy {
+        max-width: 520px;
+        margin-bottom: 22px;
+        color: var(--muted);
+        font-size: 16px;
+      }
+      .hero-meta { display: flex; flex-wrap: wrap; gap: 8px; }
+      .tag {
+        padding: 4px 9px;
+        border: 1px solid var(--line);
+        border-radius: 4px;
+        color: #52625c;
+        font-size: 11px;
+        line-height: 1.5;
+      }
+      .feature {
+        position: relative;
+        min-height: 258px;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        justify-content: space-between;
+        overflow: hidden;
+        padding: 24px;
+        border: 1px solid #cbded2;
+        border-radius: 7px;
+        background: #edf5ef;
+      }
+      .feature::after {
+        position: absolute;
+        right: -27px;
+        bottom: -65px;
+        width: 210px;
+        aspect-ratio: 1;
+        border: 1px solid #b8d5c3;
+        border-radius: 50%;
+        box-shadow: 0 0 0 22px #edf5ef, 0 0 0 23px #b8d5c3, 0 0 0 45px #edf5ef, 0 0 0 46px #b8d5c3;
+        content: "";
+        pointer-events: none;
+      }
+      .feature-top, .feature-bottom { position: relative; z-index: 1; }
+      .feature-top { width: 100%; display: flex; align-items: center; justify-content: space-between; }
+      .feature-label { color: var(--green); font-size: 11px; font-weight: 750; letter-spacing: .04em; }
+      .feature-logo {
+        display: grid;
+        width: 52px;
+        aspect-ratio: 1;
+        place-items: center;
+        border-radius: 12px;
+        background: var(--green);
+        color: white;
+        font-size: 21px;
+        font-weight: 800;
+        letter-spacing: 0;
+      }
+      .feature h2 { margin: 15px 0 6px; font-size: 26px; line-height: 1.2; }
+      .feature p { max-width: 330px; margin: 0; color: #52685d; font-size: 13px; }
+      .feature-link {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        margin-top: 17px;
+        color: var(--green);
+        font-weight: 720;
+        font-size: 13px;
+        text-decoration: none;
+      }
+      .feature-link:hover { text-decoration: underline; text-underline-offset: 3px; }
+
+      .catalog { border-top: 1px solid var(--line); padding-block: 31px 64px; }
+      .section-head {
+        display: flex;
+        align-items: end;
+        justify-content: space-between;
+        gap: 24px;
+        margin-bottom: 20px;
+      }
+      .section-head h2 { margin: 0 0 3px; font-size: 23px; line-height: 1.3; }
+      .section-head p { margin: 0; color: var(--muted); font-size: 13px; }
+      .count { color: var(--muted); font-size: 12px; white-space: nowrap; }
+      .controls {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 16px;
+        margin-bottom: 18px;
+      }
+      .filters { display: flex; flex-wrap: wrap; gap: 5px; }
+      .filter {
+        min-height: 34px;
+        padding: 6px 12px;
+        border: 1px solid transparent;
+        border-radius: 4px;
+        background: transparent;
+        color: var(--muted);
+        cursor: pointer;
+        font-size: 12px;
+      }
+      .filter:hover { background: #e9eeea; }
+      .filter[aria-pressed="true"] {
+        border-color: #cbded2;
+        background: var(--green-soft);
+        color: var(--green);
+        font-weight: 700;
+      }
+      .search {
+        width: min(240px, 100%);
+        min-height: 36px;
+        padding: 7px 11px;
+        border: 1px solid var(--line);
+        border-radius: 4px;
+        outline: none;
+        background: white;
+        color: var(--ink);
+        font-size: 12px;
+      }
+      .search:focus { border-color: var(--green); box-shadow: 0 0 0 2px #12684f1a; }
+      .search::placeholder { color: #89958f; }
+      .grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; }
+      .card {
+        min-height: 191px;
+        display: flex;
+        flex-direction: column;
+        padding: 17px;
+        border: 1px solid var(--line);
+        border-radius: 6px;
+        background: var(--white);
+        transition: border-color .15s ease, transform .15s ease;
+      }
+      .card:hover { transform: translateY(-2px); border-color: #b4c7bb; }
+      .card-head { display: flex; align-items: center; gap: 11px; margin-bottom: 12px; }
+      .logo-wrap {
+        width: 37px;
+        height: 37px;
+        display: grid;
+        flex: 0 0 auto;
+        place-items: center;
+        border-radius: 7px;
+        background: var(--logo-bg, #f0f2f1);
+      }
+      .logo-wrap img { display: block; width: 20px; height: 20px; object-fit: contain; }
+      .logo-fallback { display: none; color: var(--logo-color, var(--ink)); font-size: 16px; font-weight: 800; }
+      .card h3 { margin: 0; font-size: 15px; line-height: 1.35; }
+      .card-category { display: block; margin-top: 2px; color: var(--muted); font-size: 10px; }
+      .card p { margin: 0 0 15px; color: #5e6d67; font-size: 12px; line-height: 1.7; }
+      .card-link {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        width: fit-content;
+        margin-top: auto;
+        color: var(--green);
+        font-size: 11px;
+        font-weight: 700;
+        text-decoration: none;
+      }
+      .card-link:hover { text-decoration: underline; text-underline-offset: 3px; }
+      .external { font-size: 13px; line-height: 1; }
+      .empty { display: none; padding: 38px 16px; color: var(--muted); text-align: center; font-size: 13px; }
+      .note {
+        margin-top: 19px;
+        padding-top: 13px;
+        border-top: 1px solid var(--line);
+        color: #7b8983;
+        font-size: 11px;
+      }
+      footer { border-top: 1px solid var(--line); color: var(--muted); font-size: 11px; }
+      .footer-inner { min-height: 58px; display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+      .footer-inner a { text-decoration: none; }
+      .footer-inner a:hover { color: var(--green); }
+
+      @media (max-width: 800px) {
+        .hero { grid-template-columns: minmax(0, 1fr) minmax(270px, .9fr); gap: 28px; }
+        h1 { font-size: 36px; }
+        .grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      }
+      @media (max-width: 600px) {
+        .shell { width: min(100% - 32px, 480px); }
+        .topbar { height: 58px; }
+        .topnav { gap: 15px; }
+        .topnav a { font-size: 11px; }
+        .hero { min-height: 0; grid-template-columns: 1fr; gap: 23px; padding-block: 34px 30px; }
+        h1 { max-width: 450px; font-size: 34px; }
+        .hero-copy { font-size: 14px; }
+        .feature { min-height: 220px; padding: 19px; }
+        .feature h2 { font-size: 23px; }
+        .catalog { padding-top: 24px; }
+        .section-head { align-items: start; }
+        .section-head h2 { font-size: 20px; }
+        .controls { align-items: stretch; flex-direction: column-reverse; gap: 10px; }
+        .search { width: 100%; }
+        .filters { gap: 3px; }
+        .filter { min-height: 32px; padding-inline: 9px; }
+        .grid { grid-template-columns: 1fr; gap: 9px; }
+        .card { min-height: 0; padding: 15px; }
+        .card p { margin-bottom: 13px; }
+        .footer-inner { align-items: flex-start; justify-content: center; flex-direction: column; padding-block: 12px; }
+      }
+      @media (prefers-reduced-motion: reduce) {
+        *, *::before, *::after { scroll-behavior: auto !important; transition-duration: .01ms !important; }
+      }
+    </style>
+  </head>
+  <body>
+    <header class="shell topbar">
+      <a class="brand" href="#top" aria-label="好用办公首页">
+        <span class="brand-mark" aria-hidden="true">好</span>
+        <span>好用办公</span>
+      </a>
+      <nav class="topnav" aria-label="主导航">
+        <a href="#recommendation">本期首推</a>
+        <a href="#catalog">工具目录</a>
+      </nav>
+    </header>
+
+    <main id="top" class="shell">
+      <section class="hero" id="recommendation" aria-labelledby="hero-title">
+        <div>
+          <p class="eyebrow">AI era · office picks</p>
+          <h1 id="hero-title">把时间留给重要的工作。</h1>
+          <p class="hero-copy">从数据库、文档到协作与设计，挑出一组值得常驻工具栏的办公软件。先从更顺手的数据工作台开始。</p>
+          <div class="hero-meta" aria-label="精选类别">
+            <span class="tag">数据库</span>
+            <span class="tag">AI 助手</span>
+            <span class="tag">协作办公</span>
+            <span class="tag">设计与项目</span>
+          </div>
+        </div>
+          <article class="feature" aria-label="本期首推 DBX">
+          <div class="feature-top">
+            <span class="feature-label">本期首推 · 数据库管理</span>
+            <span class="feature-logo" aria-hidden="true">DBX</span>
+          </div>
+          <div class="feature-bottom">
+            <h2>DBX 数据库管理工具</h2>
+            <p>轻量级跨平台数据库客户端，支持 MySQL、PostgreSQL、SQLite、Redis、MongoDB 等 100 多种数据库，并集成 AI 助手。</p>
+            <a class="feature-link" href="https://dbxio.com/" target="_blank" rel="noopener noreferrer">访问 DBX 官网 <span class="external" aria-hidden="true">↗</span></a>
+          </div>
+        </article>
+      </section>
+
+      <section class="catalog" id="catalog" aria-labelledby="catalog-title">
+        <div class="section-head">
+          <div>
+            <h2 id="catalog-title">办公软件精选</h2>
+            <p>按工作场景整理，找到合适的那一款。</p>
+          </div>
+          <span class="count" id="result-count" aria-live="polite">9 款工具</span>
+        </div>
+        <div class="controls">
+          <div class="filters" role="group" aria-label="按类别筛选">
+            <button class="filter" type="button" data-category="all" aria-pressed="true">全部</button>
+            <button class="filter" type="button" data-category="ai" aria-pressed="false">AI 助手</button>
+            <button class="filter" type="button" data-category="office" aria-pressed="false">文档办公</button>
+            <button class="filter" type="button" data-category="collab" aria-pressed="false">团队协作</button>
+            <button class="filter" type="button" data-category="design" aria-pressed="false">设计创作</button>
+          </div>
+          <label class="visually-hidden" for="tool-search">搜索工具</label>
+          <input class="search" id="tool-search" type="search" placeholder="搜索工具名称或用途" autocomplete="off">
+        </div>
+        <div class="grid" id="tool-grid">
+          <article class="card" data-category="office" data-search="dbx 数据库 管理 客户端 mysql postgresql sqlite redis mongodb duckdb 达梦 ai mcp cli docker">
+            <div class="card-head">
+              <span class="logo-wrap" style="--logo-bg:#e4f2eb;--logo-color:#12684f"><span class="logo-fallback" style="display:block" aria-hidden="true">DBX</span></span>
+              <div><h3>DBX</h3><span class="card-category">数据库管理 · 本期首推</span></div>
+            </div>
+            <p>约 25 MB 的跨平台数据库客户端，覆盖 100 多种数据库，并提供 AI 助手、MCP Server、CLI、桌面端和 Docker 版本。</p>
+            <a class="card-link" href="https://dbxio.com/" target="_blank" rel="noopener noreferrer">产品官网 <span class="external" aria-hidden="true">↗</span></a>
+          </article>
+
+          <article class="card" data-category="ai" data-search="chatgpt openai 人工智能 写作 分析 助手">
+            <div class="card-head">
+              <span class="logo-wrap" style="--logo-bg:#e8f4ee;--logo-color:#087f5b"><img src="https://cdn.simpleicons.org/openai/087F5B" alt="" loading="lazy"><span class="logo-fallback" aria-hidden="true">O</span></span>
+              <div><h3>ChatGPT</h3><span class="card-category">AI 助手</span></div>
+            </div>
+            <p>适合起草、总结、资料梳理与数据分析。把重复的文字工作交给对话式 AI，再由你把关结果。</p>
+            <a class="card-link" href="https://chatgpt.com/" target="_blank" rel="noopener noreferrer">产品官网 <span class="external" aria-hidden="true">↗</span></a>
+          </article>
+
+          <article class="card" data-category="office" data-search="microsoft 365 office word excel powerpoint copilot 文档 表格 演示">
+            <div class="card-head">
+              <span class="logo-wrap" style="--logo-bg:#e9f0f7;--logo-color:#315f8a"><img src="https://cdn.simpleicons.org/microsoft365/315F8A" alt="" loading="lazy"><span class="logo-fallback" aria-hidden="true">M</span></span>
+              <div><h3>Microsoft 365</h3><span class="card-category">文档办公</span></div>
+            </div>
+            <p>Word、Excel、PowerPoint 与云端协作的一站式套件；可按需使用 Copilot 辅助起草、整理和分析。</p>
+            <a class="card-link" href="https://www.microsoft.com/microsoft-365" target="_blank" rel="noopener noreferrer">产品官网 <span class="external" aria-hidden="true">↗</span></a>
+          </article>
+
+          <article class="card" data-category="office" data-search="notion 笔记 文档 知识库 wiki 数据库 项目管理">
+            <div class="card-head">
+              <span class="logo-wrap" style="--logo-bg:#f0f1ef;--logo-color:#172923"><img src="https://cdn.simpleicons.org/notion/172923" alt="" loading="lazy"><span class="logo-fallback" aria-hidden="true">N</span></span>
+              <div><h3>Notion</h3><span class="card-category">文档与知识库</span></div>
+            </div>
+            <p>把笔记、团队知识和轻量项目管理放在同一工作区，适合搭建可持续维护的个人或团队 Wiki。</p>
+            <a class="card-link" href="https://www.notion.so/" target="_blank" rel="noopener noreferrer">产品官网 <span class="external" aria-hidden="true">↗</span></a>
+          </article>
+
+          <article class="card" data-category="collab" data-search="飞书 lark 协作 文档 日历 会议 项目管理">
+            <div class="card-head">
+              <span class="logo-wrap" style="--logo-bg:#eaf1fa;--logo-color:#3370ff"><img src="https://cdn.simpleicons.org/lark/3370FF" alt="" loading="lazy"><span class="logo-fallback" aria-hidden="true">飞</span></span>
+              <div><h3>飞书</h3><span class="card-category">团队协作</span></div>
+            </div>
+            <p>将即时沟通、日历、会议和协作文档连起来，适合需要快速同步信息与推进项目的团队。</p>
+            <a class="card-link" href="https://www.feishu.cn/" target="_blank" rel="noopener noreferrer">产品官网 <span class="external" aria-hidden="true">↗</span></a>
+          </article>
+
+          <article class="card" data-category="design" data-search="canva 可画 设计 海报 演示 视频 模板">
+            <div class="card-head">
+              <span class="logo-wrap" style="--logo-bg:#e9f3f8;--logo-color:#1673d1"><img src="https://cdn.simpleicons.org/canva/1673D1" alt="" loading="lazy"><span class="logo-fallback" aria-hidden="true">C</span></span>
+              <div><h3>Canva 可画</h3><span class="card-category">视觉创作</span></div>
+            </div>
+            <p>用模板快速制作演示文稿、海报和社交内容。适合非设计岗位快速完成清晰、统一的视觉表达。</p>
+            <a class="card-link" href="https://www.canva.com/" target="_blank" rel="noopener noreferrer">产品官网 <span class="external" aria-hidden="true">↗</span></a>
+          </article>
+
+          <article class="card" data-category="collab" data-search="slack 消息 沟通 频道 自动化 集成 团队">
+            <div class="card-head">
+              <span class="logo-wrap" style="--logo-bg:#f4e9f2;--logo-color:#611f69"><img src="https://cdn.simpleicons.org/slack/611F69" alt="" loading="lazy"><span class="logo-fallback" aria-hidden="true">S</span></span>
+              <div><h3>Slack</h3><span class="card-category">团队沟通</span></div>
+            </div>
+            <p>以频道组织团队讨论，并连接常用开发与办公服务，减少信息散落在邮件和临时群聊里。</p>
+            <a class="card-link" href="https://slack.com/" target="_blank" rel="noopener noreferrer">产品官网 <span class="external" aria-hidden="true">↗</span></a>
+          </article>
+
+          <article class="card" data-category="design" data-search="figma 界面设计 原型 协作 产品设计">
+            <div class="card-head">
+              <span class="logo-wrap" style="--logo-bg:#f3edf8;--logo-color:#7b4bc4"><img src="https://cdn.simpleicons.org/figma/7B4BC4" alt="" loading="lazy"><span class="logo-fallback" aria-hidden="true">F</span></span>
+              <div><h3>Figma</h3><span class="card-category">产品设计</span></div>
+            </div>
+            <p>在浏览器中协作完成界面设计与原型，设计师、产品和研发可以围绕同一份稿件及时对齐。</p>
+            <a class="card-link" href="https://www.figma.com/" target="_blank" rel="noopener noreferrer">产品官网 <span class="external" aria-hidden="true">↗</span></a>
+          </article>
+
+          <article class="card" data-category="collab" data-search="linear 项目管理 任务 迭代 bug 开发 团队">
+            <div class="card-head">
+              <span class="logo-wrap" style="--logo-bg:#eeeafa;--logo-color:#5e50d5"><img src="https://cdn.simpleicons.org/linear/5E50D5" alt="" loading="lazy"><span class="logo-fallback" aria-hidden="true">L</span></span>
+              <div><h3>Linear</h3><span class="card-category">项目管理</span></div>
+            </div>
+            <p>用清晰的任务、周期和路线图管理产品开发，适合希望减少流程负担、保持交付节奏的团队。</p>
+            <a class="card-link" href="https://linear.app/" target="_blank" rel="noopener noreferrer">产品官网 <span class="external" aria-hidden="true">↗</span></a>
+          </article>
+        </div>
+        <p class="empty" id="empty-state">没有找到匹配的工具。试试其他关键词或类别。</p>
+        <p class="note">产品功能与套餐可能调整，具体信息以各产品官网为准。这里的推荐按常见办公场景整理，不代表唯一选择。</p>
+      </section>
+    </main>
+
+    <footer>
+      <div class="shell footer-inner">
+        <span>好用办公 · 为专注工作而选</span>
+        <a href="https://github.com/nowindxdw-spec/newnewoffice" target="_blank" rel="noopener noreferrer">项目仓库 <span class="external" aria-hidden="true">↗</span></a>
+      </div>
+    </footer>
+    <style>.visually-hidden{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}</style>
+    <script>
+      const filterButtons = [...document.querySelectorAll('.filter')];
+      const cards = [...document.querySelectorAll('.card')];
+      const searchInput = document.querySelector('#tool-search');
+      const resultCount = document.querySelector('#result-count');
+      const emptyState = document.querySelector('#empty-state');
+      let activeCategory = 'all';
+
+      function updateResults() {
+        const query = searchInput.value.trim().toLocaleLowerCase();
+        let visible = 0;
+        for (const card of cards) {
+          const categoryMatch = activeCategory === 'all' || card.dataset.category === activeCategory;
+          const queryMatch = !query || `${card.dataset.search} ${card.textContent}`.toLocaleLowerCase().includes(query);
+          const show = categoryMatch && queryMatch;
+          card.hidden = !show;
+          if (show) visible += 1;
+        }
+        resultCount.textContent = `${visible} 款工具`;
+        emptyState.style.display = visible ? 'none' : 'block';
+      }
+
+      filterButtons.forEach((button) => {
+        button.addEventListener('click', () => {
+          activeCategory = button.dataset.category;
+          filterButtons.forEach((item) => item.setAttribute('aria-pressed', String(item === button)));
+          updateResults();
+        });
+      });
+      searchInput.addEventListener('input', updateResults);
+      document.querySelectorAll('.logo-wrap img').forEach((image) => {
+        image.addEventListener('error', () => {
+          image.hidden = true;
+          image.nextElementSibling.style.display = 'block';
+        }, { once: true });
+      });
+    </script>
+  </body>
+</html>
