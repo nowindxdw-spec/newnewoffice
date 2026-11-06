@@ -1,0 +1,43 @@
+name: 工具体验与收录建议
+description: 分享实际用途、使用障碍，或推荐值得收录的工具。
+title: "[工具反馈] "
+body:
+  - type: markdown
+    attributes:
+      value: |
+        感谢反馈！请描述一个具体任务，或推荐一款工具。反馈会公开显示，请勿填写账号密码、API Key 或数据库连接凭据。
+  - type: dropdown
+    id: feedback-type
+    attributes:
+      label: 反馈类型
+      options:
+        - 已使用工具的体验
+        - 推荐新工具
+        - 纠正产品信息或失效链接
+        - 站点使用问题
+    validations:
+      required: true
+  - type: input
+    id: tool
+    attributes:
+      label: 工具名称或页面位置
+      placeholder: 例如 DBX，或分类筛选区
+    validations:
+      required: true
+  - type: textarea
+    id: experience
+    attributes:
+      label: 具体用途、结果或建议
+      description: 用它完成什么任务？结果如何，有什么障碍？如推荐新工具，请说明用途并附官方链接。
+    validations:
+      required: true
+  - type: input
+    id: source
+    attributes:
+      label: 从哪里看到本站？（选填）
+      placeholder: 掘金文章、技术群、搜索、朋友分享等
+  - type: input
+    id: environment
+    attributes:
+      label: 版本与环境（选填）
+      placeholder: 工具版本、操作系统；有助于复现问题

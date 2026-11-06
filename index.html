@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="theme-color" content="#f5f7f5">
-    <meta name="description" content="为 AI 时代挑选真正好用的办公软件，从 DBx Studio 数据库工作台开始。">
+    <meta name="description" content="面向效率工具与开源软件爱好者的办公工具精选，推荐 DBX 数据库管理、ArtCraft 创作系列与 DSH-Go，按用途整理简介和官方入口。">
     <title>好用办公 · AI 时代的效率工具</title>
     <link rel="preconnect" href="https://dbxio.com">
     <style>
@@ -313,6 +313,11 @@
         color: #7b8983;
         font-size: 11px;
       }
+      .selection { padding: 20px; border: 1px solid var(--line); border-radius: 6px; background: white; }
+      .selection h3 { margin-bottom: 8px; font-size: 16px; }
+      .selection p { margin-bottom: 10px; color: var(--muted); font-size: 13px; }
+      .selection p:last-child { margin-bottom: 0; }
+      .selection a { color: var(--green); text-underline-offset: 3px; }
       footer { border-top: 1px solid var(--line); color: var(--muted); font-size: 11px; }
       .footer-inner { min-height: 58px; display: flex; align-items: center; justify-content: space-between; gap: 12px; }
       .footer-inner a { text-decoration: none; }
@@ -520,6 +525,12 @@
         </div>
         <p class="empty" id="empty-state">没有找到匹配的工具。试试其他关键词或类别。</p>
         <p class="note">产品功能与套餐可能调整，具体信息以各产品官网为准。这里的推荐按常见办公场景整理，不代表唯一选择。</p>
+        <aside class="selection" aria-labelledby="selection-title">
+          <h3 id="selection-title">我们怎样选工具</h3>
+          <p>面向效率工具与开源软件爱好者，优先整理用途明确、能找到官方入口、适合具体办公任务的产品。推荐会说明适用场景，并附官网或项目仓库链接。</p>
+          <p>资料来源：当前目录依据产品官网与项目公开说明整理，尚未发布独立实测。收录不代表已验证所有功能；后续实测会列明版本、环境、任务结果和不足。</p>
+          <p><a href="https://github.com/nowindxdw-spec/newnewoffice/issues/new?template=tool-feedback.yml" target="_blank" rel="noopener noreferrer">建议与反馈 ↗</a>：你试了哪款工具？解决了什么问题，或遇到了什么障碍？也欢迎推荐目录里缺少的工具。提交需要登录 GitHub，反馈将公开显示。</p>
+        </aside>
       </section>
     </main>
 
